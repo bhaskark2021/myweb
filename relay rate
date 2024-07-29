@@ -1,0 +1,42 @@
+create temp table site
+(
+site character varying(50),
+city character varying(50),
+type character varying(50)
+);
+copy site from 
+'s3://aws-prism-bucket/site.csv'
+iam_role 'arn:aws:iam::338596751329:role/ECCF_RS_S3_ROLE,arn:aws:iam::897784192752:role/ECCFReadS3'
+delimiter ','
+region 'ap-south-1'
+ignoreheader 1;
+
+
+create temp table equipment
+(
+equipment_type character varying(80)
+);
+copy equipment from 
+'s3://aws-prism-bucket/equipment.csv'
+iam_role 'arn:aws:iam::338596751329:role/ECCF_RS_S3_ROLE,arn:aws:iam::897784192752:role/ECCFReadS3'
+delimiter ','
+region 'ap-south-1'
+ignoreheader 1;
+
+create temp table carrier
+(
+carrier character varying(80)
+
+);
+copy carrier from 
+'s3://aws-prism-bucket/carrier.csv'
+iam_role 'arn:aws:iam::338596751329:role/ECCF_RS_S3_ROLE,arn:aws:iam::897784192752:role/ECCFReadS3'
+delimiter ','
+region 'ap-south-1'
+ignoreheader 1;
+
+
+select * from 
+site
+cross join equipment
+cross join carrier
